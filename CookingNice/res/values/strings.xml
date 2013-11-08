@@ -4,6 +4,7 @@
     <string name="app_name">CookingNice</string>
     <string name="action_settings">Settings</string>
     <string name="good_morning">Good Morning</string>
-    
+    <string name="title_activity_welcome_page">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

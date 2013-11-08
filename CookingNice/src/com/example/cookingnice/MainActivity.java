@@ -34,6 +34,8 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	private Button btnClose;
 	private TextView speech;
 	
+	private int IngOrStep; // Ingrediente = 0  -----Step = 1;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,10 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		btnClose = (Button) findViewById(R.id.close_button); 
 		
 		//seta textos iniciais
-	    myText.setText(oneRecipe.getStepByActualPosition());
-	    isFirstTime = true;
-	    
+		
+	    myText.setText(oneRecipe.getIngByActualPosition());
+	    isFirstTime = true;	    
+	    IngOrStep =0;
 	}
 
 	public void actionButtonSpeak(View view) {
@@ -72,21 +75,33 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 			t.show();
 		}
 	}
-/*
+ 
 	public void actionButtonSpeakLabel(View view) {
 		// Sua Ação
-
-		if(oneRecipe.hasNextStep() == true && isFirstTime == false)
+		if(IngOrStep ==0)
 		{
-			oneRecipe.incPosition();
-		    myText.setText(oneRecipe.getStepByActualPosition());
-		}		
-		speakOut(); 
-		isFirstTime= false;
+			if(oneRecipe.hasNextIng() == true && isFirstTime == false)
+			{
+				oneRecipe.incPositionIng();
+			    myText.setText(oneRecipe.getIngByActualPosition());
+			}		
+			speakOut(); 
+			isFirstTime= false;
 		
-		
+			
+		}
+		else
+		{
+			if(oneRecipe.hasNextStep() == true && isFirstTime == false)
+			{
+				oneRecipe.incPosition();
+			    myText.setText(oneRecipe.getStepByActualPosition());
+			}		
+			speakOut(); 
+			isFirstTime= false;
+		}
 	}
-	*/
+
 	public void actionFinish(View view)
 	{
 		finish(); 
@@ -96,6 +111,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		
 		return true;
 	}
 	
@@ -112,7 +128,8 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	@Override
 	public void onInit(int status) {
 		// TODO Auto-generated method stub
-
+		
+		
 		if (status == TextToSpeech.SUCCESS) {
 
 			int result = tts.setLanguage(Locale.US);
@@ -157,32 +174,36 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	
 	private void ManipulateSpeech(String command)
 	{
-		
-		if(command.equals("done")||command.equals("the") ||command.equals("then"))
+	switch(IngOrStep)
+	{
+	case 0:
+	{	
+		if(command.equals("done")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
+		{
+			if(oneRecipe.hasNextIng() == true && isFirstTime == false)
 			{
-			//myText.setText("cheguei");
-			if(oneRecipe.hasNextStep() == true && isFirstTime == false)
-			{
-				oneRecipe.incPosition();
-			    myText.setText(oneRecipe.getStepByActualPosition());
-			}		
-			speakOut(); 
-			isFirstTime= false;
-		} 
-		
-		if(command.equals("back")||command.equals("beck"))
-		{   
-			myText.setText("cheguei");
+				oneRecipe.incPositionIng();
+			    myText.setText(oneRecipe.getIngByActualPosition());
+			}
+			if(oneRecipe.hasNextIng() == false){
+				IngOrStep = 1;
+				myText.setText(oneRecipe.getStepByActualPosition());		
+			}
 			
-			if(oneRecipe.hasPreviousStep() == true && isFirstTime == false)
-			{
-				oneRecipe.decPosition();
-			    myText.setText(oneRecipe.getStepByActualPosition());
-			}		
 			speakOut(); 
-			isFirstTime= false;			
+			isFirstTime = false;
 		}
-		
+	
+		if(command.equals("back")||command.equals("beck")||command.equals("before"))
+		{   
+			if(oneRecipe.hasPreviousIng() == false)
+			{
+				oneRecipe.decPositionIng();
+			    myText.setText(oneRecipe.getIngByActualPosition());
+			}		
+			speakOut(); 			
+		}
+	
 		if(command.equals("repeat")||command.equals("again"))
 		{   
 			speakOut(); 		
@@ -192,6 +213,81 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 			tts.speak("Are you Sure?", TextToSpeech.QUEUE_FLUSH, null);
 			
 		}
+		if(command.equals("ingredients"))
+		{
+			IngOrStep = 0;
+			oneRecipe.setIng();
+			myText.setText(oneRecipe.getIngByActualPosition());
+			speakOut();
+		}
+		if(command.equals("steps"))
+		{
+			IngOrStep = 1;
+			isFirstTime = false;
+			myText.setText(oneRecipe.getStepByActualPosition());
+			speakOut();
+			
+		}
+		if(command.equals("start")||command.equals("star")||command.equals("beginning"))
+		{
+			oneRecipe.setIng();
+			myText.setText(oneRecipe.getIngByActualPosition());
+			speakOut();
+			
+		}
+		break;
+	}	
+
+	
+	case 1:
+		{
+			if(command.equals("done")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
+			{
+				if(oneRecipe.hasNextStep() == true && isFirstTime == false)
+				{
+					oneRecipe.incPosition();
+				    myText.setText(oneRecipe.getStepByActualPosition());
+				}		
+				speakOut(); 
+				isFirstTime= false;
+			} 
+		
+			if(command.equals("back")||command.equals("beck")||command.equals("before"))
+			{   
+				if(oneRecipe.hasPreviousStep() == false)
+				{
+					oneRecipe.decPosition();
+				    myText.setText(oneRecipe.getStepByActualPosition());
+				}		
+				speakOut(); 		
+			}
+		
+			if(command.equals("repeat")||command.equals("again"))
+			{   
+				speakOut(); 		
+			}
+			if(command.equals("finish"))
+			{
+				tts.speak("Are you Sure?", TextToSpeech.QUEUE_FLUSH, null);
+				
+			}
+			if(command.equals("ingredients"))
+			{
+				IngOrStep = 0;
+				oneRecipe.setIng();
+				myText.setText(oneRecipe.getIngByActualPosition());
+				speakOut();
+			}
+			if(command.equals("start")||command.equals("star")||command.equals("beginning"))
+			{
+				oneRecipe.setPos();
+				myText.setText(oneRecipe.getStepByActualPosition());
+				speakOut();
+				
+			}
+			break;
+		}	
+	}
 		
 	}
 
@@ -202,5 +298,5 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 	
 	}
-
+		
 }
