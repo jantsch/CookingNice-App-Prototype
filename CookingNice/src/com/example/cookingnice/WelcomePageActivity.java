@@ -33,7 +33,7 @@ public class WelcomePageActivity extends Activity {
 	        case (MotionEvent.ACTION_DOWN) :
 	    {		
 	        	Intent trocatela = new
-	        			Intent(WelcomePageActivity.this,MainActivity.class);
+	        			Intent(WelcomePageActivity.this,Search_activity.class);
 	        			WelcomePageActivity.this.startActivity(trocatela);
 	        			WelcomePageActivity.this.finish();
 	      	        	return true;

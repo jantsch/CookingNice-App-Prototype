@@ -6,5 +6,6 @@
     <string name="good_morning">Good Morning</string>
     <string name="title_activity_welcome_page">MainActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_search_activity">Search_activity</string>
 
 </resources>

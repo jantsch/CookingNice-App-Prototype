@@ -1,11 +1,13 @@
 package com.example.cookingnice;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe  implements Serializable {
 	
-	public String userName;
+	public String Name;
+	public String senderName;
 	public String timeToPrepare;
 	
 	ArrayList<String> ingredients;
@@ -13,10 +15,12 @@ public class Recipe {
 	
 	private int position;
 	private int positionIng;
-	public Recipe ()
+	public Recipe (String Name,String senderName,String timeToPrepare)
 	{
-		userName = "Camila Araujo";
-		timeToPrepare = "10h";
+		this.Name= Name;
+		this.senderName = senderName;
+		this.timeToPrepare = timeToPrepare;
+		
 		ingredients = new ArrayList<String>();
 		steps = new ArrayList<String>();
 		
@@ -35,6 +39,10 @@ public class Recipe {
 	
 		position = 0;
 		positionIng = 0;
+	}
+	public String getName()
+	{
+		return this.Name;
 	}
 	
 	

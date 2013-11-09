@@ -42,7 +42,11 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		oneRecipe = new Recipe();
+		
+		
+
+		Intent intent = getIntent();
+		oneRecipe = (Recipe) intent.getSerializableExtra("Recipe");	
 		tts = new TextToSpeech(this, this);
 		
 		myText = (TextView) findViewById(R.id.textView1);
@@ -178,7 +182,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	{
 	case 0:
 	{	
-		if(command.equals("done")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
+		if(command.equals("done")||command.equals("next")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
 		{
 			if(oneRecipe.hasNextIng() == true && isFirstTime == false)
 			{
@@ -241,7 +245,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 	
 	case 1:
 		{
-			if(command.equals("done")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
+			if(command.equals("done")||command.equals("next")||command.equals("dan")||command.equals("the") ||command.equals("then")||command.equals("does")||command.equals("does it"))
 			{
 				if(oneRecipe.hasNextStep() == true && isFirstTime == false)
 				{
