@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"    
     tools:context=".Search_activity" >
 
     <LinearLayout
@@ -15,8 +16,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+    	android:background="#FFFFFFFF"    
         android:orientation="vertical" >
-
+	
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -32,45 +34,30 @@
                 android:id="@+id/editText1"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.50"
                 android:ems="10" >
-                
             </EditText>
 
             <Button
                 android:id="@+id/button1"
-                android:layout_width="match_parent"
+                android:layout_width="82dp"
                 android:layout_height="wrap_content"
-                android:text="Speak"
-                android:onClick="search" />
-
+                android:background="#ECECEC"
+                android:onClick="search"
+                android:text="Search" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20dp"
-            android:clickable = "true"          
-            android:onClick="openSpeakActivityOne" />
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#ECECEC"
+            android:dividerHeight="4sp"
+             >
+            
+        
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" 
-            android:clickable = "true"
-            android:textSize="20dp"
-            android:onClick="openSpeakActivityTwo" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20dp"
-            android:clickable ="true"          
-            android:onClick="openSpeakActivityThree" />
+        </ListView>
 
     </LinearLayout>
 

@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		
 		//seta textos iniciais
 		
-	    myText.setText(oneRecipe.getIngByActualPosition());
+	    myText.setText(oneRecipe.Name);
 	    isFirstTime = true;	    
 	    IngOrStep =0;
 	}

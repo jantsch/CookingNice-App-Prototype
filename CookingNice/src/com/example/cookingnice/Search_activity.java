@@ -1,78 +1,101 @@
 package com.example.cookingnice;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Search_activity extends Activity {
+public class Search_activity extends Activity implements OnItemClickListener {
 
-	TextView firstRecipe;
-	TextView secondRecipe;
-	TextView thirdRecipe;
-	EditText desiredRecipe;
 	
-	Recipe oneRecipe;
-	Recipe twoRecipe;
-	Recipe threeRecipe;
+	EditText desiredRecipe;	
+	ListView lv;
+	
+	
+	ArrayList<Recipe> recipes;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_activity);
 		
-		oneRecipe = new Recipe("Massa Quatro Queijos","Adriano"," 10 minutes");
-		twoRecipe = new Recipe("Massa Carbonara","Luiza","30 minutes");
-		threeRecipe = new Recipe("Massa Ao Pesto","Jéssica","1h");
 		
-		firstRecipe = (TextView) findViewById(R.id.textView2);
-		secondRecipe = (TextView) findViewById(R.id.textView3);
-		thirdRecipe = (TextView) findViewById(R.id.textView4);
+		Recipe oneRecipe = new Recipe("Pasta Four Cheese","Adriano"," 10 minutes",R.drawable.maca);
+		Recipe twoRecipe = new Recipe("Bavette","Luiza","30 minutes",R.drawable.maca2);
+		Recipe threeRecipe = new Recipe("Ditalini","Jéssica","1 hora",R.drawable.maca3);
+		Recipe fourthrecipe = new Recipe("Funghi","José"," 10 minutes",R.drawable.maca4);
+		Recipe fifthRecipe = new Recipe("Nhoque","Pedro","30 minutes",R.drawable.maca5);
+		Recipe sixthRecipe = new Recipe("Macarrão","Maria","2 horas",R.drawable.maca6);
+		recipes = new ArrayList<Recipe>();
+		recipes.add(oneRecipe);
+		recipes.add(twoRecipe);
+		recipes.add(threeRecipe);
+		recipes.add(fourthrecipe);
+		recipes.add(fifthRecipe);
+		recipes.add(sixthRecipe);
+		
+		
+		
 		desiredRecipe = (EditText) findViewById(R.id.editText1);
-		
+		lv = (ListView) findViewById(R.id.listView1);
+        
+		lv.setOnItemClickListener(this);
+			
 	}
+	
+	@Override
+	     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	        
+          // Obtêm os detalhes do Estado selecionado
+        	Recipe oneRecipe = recipes.get(position);
+	        
+	         // Exibe a Activity com os detalhes dos Estados
+	        Intent intent = new Intent(this, MainActivity.class);
+	          Bundle params = new Bundle();
+	          params.putSerializable("Recipe",oneRecipe);
+	          intent.putExtras(params);
+	         
+	        startActivity(intent);
+      }
+	  
+  
 
+    
+
+
+  
+ 
 	public void search(View view)
 	{
-		if(desiredRecipe.getText().toString()=="")
-		{//voz
-		}
-		else
-		{	String word = desiredRecipe.getText().toString().toLowerCase();
-			if(word.equals("massa")== true)
-			{
-				firstRecipe.setText(oneRecipe.Name);	
-				secondRecipe.setText(twoRecipe.Name);	
-				thirdRecipe.setText(threeRecipe.Name);			
-			}
+		
+			String word = desiredRecipe.getText().toString().toLowerCase();
+			if(word.equals("pasta")== true)
+			{	
+				
+		        Adapter oneA = new Adapter(this,recipes);
+		        lv.setAdapter(oneA);			
+				
 			
-		}
+			}
 	}
-	public void openSpeakActivityOne(View view)
-	{
-		Intent nova = new Intent(this, MainActivity.class);
-		nova.putExtra("Recipe", oneRecipe);
-		this.startActivity(nova);
-		this.finish();
-	}
-	public void openSpeakActivityTwo(View view)
-	{
-		Intent nova = new Intent(this, MainActivity.class);
-		nova.putExtra("Recipe", twoRecipe);
-		this.startActivity(nova);
-		this.finish();
-	
-	}
-	public void openSpeakActivityThree(View view)
-	{
-		Intent nova = new Intent(this, MainActivity.class);
-		nova.putExtra("Recipe", threeRecipe);
-		this.startActivity(nova);
-		this.finish();
-	
-	}
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

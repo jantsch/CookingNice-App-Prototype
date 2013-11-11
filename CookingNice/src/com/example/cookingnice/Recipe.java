@@ -9,18 +9,19 @@ public class Recipe  implements Serializable {
 	public String Name;
 	public String senderName;
 	public String timeToPrepare;
+	public int Image;
 	
 	ArrayList<String> ingredients;
 	ArrayList<String> steps;
 	
 	private int position;
 	private int positionIng;
-	public Recipe (String Name,String senderName,String timeToPrepare)
+	public Recipe (String Name,String senderName,String timeToPrepare , int Image)
 	{
 		this.Name= Name;
 		this.senderName = senderName;
 		this.timeToPrepare = timeToPrepare;
-		
+		this.Image = Image;
 		ingredients = new ArrayList<String>();
 		steps = new ArrayList<String>();
 		
@@ -147,4 +148,5 @@ public class Recipe  implements Serializable {
 	{
 		this.position = 0;
 	}
+
 }
