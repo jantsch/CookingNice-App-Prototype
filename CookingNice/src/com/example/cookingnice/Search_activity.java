@@ -39,10 +39,10 @@ public class Search_activity extends Activity implements OnItemClickListener {
 		
 		Recipe oneRecipe = new Recipe("Pasta Four Cheese","Adriano"," 10 minutes",R.drawable.maca);
 		Recipe twoRecipe = new Recipe("Bavette","Luiza","30 minutes",R.drawable.maca2);
-		Recipe threeRecipe = new Recipe("Ditalini","Jï¿½ssica","1 hora",R.drawable.maca3);
-		Recipe fourthrecipe = new Recipe("Funghi","Josï¿½"," 10 minutes",R.drawable.maca4);
+		Recipe threeRecipe = new Recipe("Ditalini","Jéssica","1 hora",R.drawable.maca3);
+		Recipe fourthrecipe = new Recipe("Funghi","José"," 10 minutes",R.drawable.maca4);
 		Recipe fifthRecipe = new Recipe("Nhoque","Pedro","30 minutes",R.drawable.maca5);
-		Recipe sixthRecipe = new Recipe("Macarrï¿½o","Maria","2 horas",R.drawable.maca6);
+		Recipe sixthRecipe = new Recipe("Macarrão","Maria","2 horas",R.drawable.maca6);
 		recipes = new ArrayList<Recipe>();
 		recipes.add(oneRecipe);
 		recipes.add(twoRecipe);
@@ -63,7 +63,7 @@ public class Search_activity extends Activity implements OnItemClickListener {
 	@Override
 	     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	        
-          // Obtï¿½m os detalhes do Estado selecionado
+          // Obtêm os detalhes do Estado selecionado
         	Recipe oneRecipe = recipes.get(position);
 	        
 	         // Exibe a Activity com os detalhes dos Estados
